@@ -6,7 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const uri = "mongodb+srv://hkmmishra18:vZPoKrXJRSbp2DeH@cluster0.psj2onl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"; // Replace with your actual connection string
+const uri = "mongodb://127.0.0.1:27017/myDatabase"; // Replace with your actual connection string
 
 async function connectToMongoDB() {
   try {
