@@ -1,12 +1,16 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import dotenv from "dotenv";
+
+dotenv.config(); // Load .env variables
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const uri = "mongodb+srv://arpit:Arpit%40123@cluster1.qiya1zu.mongodb.net/myDatabase?retryWrites=true&w=majority";
+// MongoDB URI from environment variable
+const uri = process.env.MONGODB_URI;
 
 async function connectToMongoDB() {
   try {
@@ -14,6 +18,7 @@ async function connectToMongoDB() {
     console.log("✅ Connected to MongoDB Atlas using Mongoose!");
   } catch (error) {
     console.error("❌ Error connecting to MongoDB Atlas:", error);
+    process.exit(1); // Exit if DB connection fails
   }
 }
 
@@ -74,4 +79,6 @@ app.put("/comments/:id/dislike", async (req, res) => {
   res.json(comment);
 });
 
-app.listen(4600, () => console.log("🚀 Server running on port 4600"));
+// Use process.env.PORT for deployment
+const PORT = process.env.PORT || 4600;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
